@@ -7,6 +7,7 @@ use Muvinime\Admin\AdminPage;
 use Muvinime\Admin\Settings;
 use Muvinime\Cron\Handlers;
 use Muvinime\Cron\Scheduler;
+use Muvinime\Update\PluginUpdater;
 
 class Plugin
 {
@@ -71,6 +72,7 @@ class Plugin
         $this->registerRestRoutes();
         $this->registerHttpFilters();
         $this->registerPostTypeSupport();
+        $this->registerUpdateChecker();
     }
 
     private function registerActivationHooks(): void
@@ -112,5 +114,11 @@ class Plugin
     private function registerPostTypeSupport(): void
     {
         add_post_type_support('tv', 'thumbnail');
+    }
+
+    private function registerUpdateChecker(): void
+    {
+        $updater = new PluginUpdater();
+        $updater->register();
     }
 }
