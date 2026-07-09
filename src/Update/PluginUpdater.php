@@ -10,7 +10,7 @@ class PluginUpdater
 
     public function __construct()
     {
-        $this->updateUrl = 'https://vortex-byte.github.io/muvinime/update.json';
+        $this->updateUrl = 'https://raw.githubusercontent.com/vortex-byte/muvinime/main/update.json';
         $this->pluginSlug = 'muvinime';
         $this->pluginFile = MVNIME_BASEFILE;
     }

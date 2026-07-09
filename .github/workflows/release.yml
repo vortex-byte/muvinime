@@ -7,15 +7,10 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -32,44 +27,40 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
-      - name: Create release zip
-        run: |
-          mkdir -p build/muvinime
-          rsync -av --exclude='.git' --exclude='.github' --exclude='build' --exclude='app.log' --exclude='composer.lock' --exclude='data.json' ./ build/muvinime/
-          cd build && zip -r ../muvinime.zip muvinime/
-
       - name: Generate update.json
         run: |
-          cat > update.json << 'EOF'
+          cat > update.json << EOF
           {
             "version": "${{ steps.version.outputs.VERSION }}",
             "download_url": "https://github.com/vortex-byte/muvinime/releases/download/${{ github.ref_name }}/muvinime.zip",
             "requires": "5.0",
             "tested": "6.7",
             "requires_php": "7.4",
-            "last_updated": "${{ github.event.repository.updated_at }}",
+            "last_updated": "$(date -u +%Y-%m-%d)",
             "author": "<a href=\"https://t.me/kenzo_id\">Z</a>",
             "sections": {
               "description": "Anime uploader plugin for WordPress. Automatically posts anime episodes and series from configured sources.",
-              "changelog": "<h4>${{ steps.version.outputs.VERSION }}</h4><ul><li>Latest release. See GitHub releases for full changelog.</li></ul>"
+              "changelog": "<h4>${{ steps.version.outputs.VERSION }}</h4><ul><li>See GitHub release for full changelog.</li></ul>"
             }
           }
           EOF
+
+      - name: Commit update.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add update.json
+          git commit -m "chore: update update.json to v${{ steps.version.outputs.VERSION }}" || echo "Nothing to commit"
+          git push
+
+      - name: Create release zip
+        run: |
+          mkdir -p build/muvinime
+          rsync -av --exclude='.git' --exclude='.github' --exclude='build' --exclude='app.log' --exclude='composer.lock' --exclude='data.json' ./ build/muvinime/
+          cd build && zip -r ../muvinime.zip muvinime/
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: muvinime.zip
           generate_release_notes: true
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: update.json
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
