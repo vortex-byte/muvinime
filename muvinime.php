@@ -3,7 +3,7 @@
 /**
  * Plugin Name: MuviNime
  * Description: Anime uploader
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: Z
  * Author URI:  https://t.me/kenzo_id
  */
