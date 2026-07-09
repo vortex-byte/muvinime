@@ -1,0 +1,16 @@
+{
+    "name": "nameless/muvinime",
+    "description": "Anime Uploader",
+    "autoload": {
+        "psr-4": {
+            "Muvinime\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Vortex-Byte",
+            "email": "nameless257@proton.me"
+        }
+    ],
+    "require": {}
+}
