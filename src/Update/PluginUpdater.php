@@ -21,7 +21,7 @@ class PluginUpdater
         add_filter('plugins_api', [$this, 'pluginInfo'], 10, 3);
     }
 
-    public function checkUpdate($transient): mixed
+    public function checkUpdate($transient)
     {
         if (empty($transient->checked)) {
             return $transient;
@@ -48,7 +48,7 @@ class PluginUpdater
         return $transient;
     }
 
-    public function pluginInfo($result, string $action, object $args): mixed
+    public function pluginInfo($result, string $action, object $args)
     {
         if ($action !== 'plugin_information' || $args->slug !== $this->pluginSlug) {
             return $result;

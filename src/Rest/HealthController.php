@@ -16,6 +16,9 @@ class HealthController
     {
         header('Content-Type:text/plain');
         $logPath = \defined('MVNIME_PATH') ? MVNIME_PATH . 'app.log' : WP_PLUGIN_DIR . '/muvinime/app.log';
+        if (!file_exists($logPath)) {
+            file_put_contents($logPath, '');
+        }
         echo file_get_contents($logPath);
     }
 
