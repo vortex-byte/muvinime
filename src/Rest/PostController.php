@@ -18,7 +18,7 @@ class PostController
         return new WP_REST_Response($post, 200);
     }
 
-    public function getPostsList(WP_REST_Request $request): WP_REST_Response|WP_Error
+    public function getPostsList(WP_REST_Request $request)
     {
         try {
             global $wpdb;

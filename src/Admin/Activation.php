@@ -24,18 +24,17 @@ class Activation
         delete_option('muvinime_cron_lock');
     }
 
-    public function uninstall(): void
+    public static function uninstall(): void
     {
         delete_option('muvi_apikey');
         delete_option('muvi_userid');
         delete_option('muvi_enable_log');
 
-        $self = new self();
-        $self->clearScheduledHook('mvn_post_cron_hook');
-        $self->clearScheduledHook('mvn_series_update_cron_hook');
+        self::clearScheduledHook('mvn_post_cron_hook');
+        self::clearScheduledHook('mvn_series_update_cron_hook');
     }
 
-    private function clearScheduledHook(string $hook): void
+    private static function clearScheduledHook(string $hook): void
     {
         wp_clear_scheduled_hook($hook);
 

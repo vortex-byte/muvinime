@@ -80,7 +80,7 @@ class Plugin
         $pluginFile = constant('MVNIME_BASEFILE');
         register_activation_hook($pluginFile, [$this->activation, 'activate']);
         register_deactivation_hook($pluginFile, [$this->activation, 'deactivate']);
-        register_uninstall_hook($pluginFile, [$this->activation, 'uninstall']);
+        register_uninstall_hook($pluginFile, [Activation::class, 'uninstall']);
     }
 
     private function registerAdminHooks(): void
