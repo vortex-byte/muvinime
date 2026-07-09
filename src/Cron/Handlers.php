@@ -49,7 +49,7 @@ class Handlers
                 }
 
                 if (!$result || isset($result['error'])) {
-                    Logger::error("E: {$result['title']} {$result['error']}");
+                    Logger::error("E: " . ($result['title'] ?? $data['title'] ?? 'Unknown') . " " . ($result['error'] ?? 'Unknown error'));
                 } elseif (isset($result['cancel'])) {
                     unset($queue[0]);
                     QueueUtils::saveQueue(array_values($queue));
