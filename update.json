@@ -1,13 +1,13 @@
 {
-  "version": "2.1.3",
-  "download_url": "https://github.com/vortex-byte/muvinime/releases/download/v2.1.3/muvinime.zip",
+  "version": "2.1.4",
+  "download_url": "https://github.com/vortex-byte/muvinime/releases/download/v2.1.4/muvinime.zip",
   "requires": "5.0",
   "tested": "6.7",
   "requires_php": "7.4",
-  "last_updated": "2026-07-09",
+  "last_updated": "2026-07-10",
   "author": "<a href=\"https://t.me/kenzo_id\">Z</a>",
   "sections": {
     "description": "Anime uploader plugin for WordPress. Automatically posts anime episodes and series from configured sources.",
-    "changelog": "<h4>2.1.3</h4><ul><li>See GitHub release for full changelog.</li></ul>"
+    "changelog": "<h4>2.1.4</h4><ul><li>See GitHub release for full changelog.</li></ul>"
   }
 }
